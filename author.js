@@ -31,7 +31,7 @@ var z = d3.scaleOrdinal()
     "#930a0a"]);
 
 var svg = d3.select("svg"),
-    margin = {top: 20, right: 70, bottom: 100, left: 40},
+    margin = {top: 30, right: 70, bottom: 100, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -88,11 +88,12 @@ d3.csv("author_count.csv", function(d, i, columns) {
     .append("text")
       .attr("x", 2)
       .attr("y", y(y.ticks().pop()) + 0.5)
-      .attr("dy", "0.32em")
+      .attr("dy", "0.32d")
       .attr("fill", "#000")
       .attr("font-weight", "bold")
       .attr("text-anchor", "start")
-      .text("Population");
+      .attr("transform", function(d, i) { return "translate(0,-8)"; })
+      .text("Number of publications");
 
   var legend = g.append("g")
       .attr("font-family", "sans-serif")
@@ -112,6 +113,6 @@ d3.csv("author_count.csv", function(d, i, columns) {
   legend.append("text")
       .attr("x", width + 70)
       .attr("y", 9.5)
-      .attr("dy", "0.32em")
+      .attr("dy", "0.32d")
       .text(function(d) { return d; });
 });

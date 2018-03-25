@@ -51,10 +51,11 @@ From the final chart, we can find out that Damien Chablat is the top 1 from all 
 ### Method
     1. This task is to get the trend line on how papers with venue ICSE are being published and statistics throughout 1992. We first filter out the papers that has venue ICSE.
     2. The data is then further processed to get only years and title as these are the only applicable fields.
-    3 The data is then groupedby year and aggregator function is used to get the count of papers for each year.
+    3. The data is then groupedby year and aggregator function is used to get the count of papers for each year.
+    4. To visualize we use year as x_axis and use number of papers as y_axis, after that line chart is plot to show the change of number of papers among all years. 
+    5. Last but not least, the trend line is calculated using formula. To get the trend line, we pass all data entry to the function leastSquares and this function will calculate the returns slope, intercept and r-square of the line and return back. After that, the line is drawn using the equation.
 ### Justification for visualization 
 - We found out that there is only countable number of repositories under torvals.  So, It is easier to compare languages across different repositoires. As we used a grouped barchart, it is also easier to compare which language is the most dominant in each repository.  We also used log scale on the Y axis as one of the repository (linux) is a very popular repository with a large number of C code written in it.  So without log scale, we won't be able to comprehend the difference between the rest of the repositories.
+
 ### Insight
-- From the scatter bar chart we can find out that linux have the most bytes of codes and linux used most languages in the all repos. Linux and subsurface-for-dirk are the top two which have used more languages than other repos.
-Language C is used mostly for most of the repos.
-In the all repos, repo test-tlb have least codes.
+From the line chart we can see that the trend of the number of papers published is increasing in the previous years. However, the increase is not stable, the number can be even zero for some year.

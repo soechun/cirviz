@@ -79,7 +79,12 @@
     
     svg.append("path")
       .datum(data)
-      .attr("class","line")
+      // .attr("class","line")
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-linejoin", "round")
+      .attr("stroke-linecap", "round")
+      .attr("stroke-width", 2.5)
       .attr("d", line);
     
     svg.select(".x.axis")
@@ -129,7 +134,9 @@
       .attr("x2", function(d) { return xScale(d[2]); })
       .attr("y2", function(d) { return yScale(d[3]); })
       .attr("stroke", "black")
-      .attr("stroke-width", 1);
+      .attr("stroke-width", 1)
+      .style("stroke-dasharray", ("3, 3"))
+      ;
     
     // display equation on the chart
     svg.append("text")

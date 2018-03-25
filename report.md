@@ -1,40 +1,39 @@
 # 1. Introduction 
-- The objective of the assignment is to visualize the statistic and user behaviors of contributors working on the linux github repository. Github developer api is used to retrieve the data from `https://github.com/torvalds/linux`. 
+- The objective of the assignment is to visualize for thousands of scientific documents to digest a big source of text or even making out meaningful insights from the data is challenging.
 - Three main area of user behavoir is analyzed and visualized.
-    1. Number of commits per week within a year
-    2. What time and date are developers most active on github
-    3. Languages used in the repositories of the owner of linux github
+    1. Visualize the top 10 authors for venue arXiv based on the number of publications he/she has made across all available years for arXiv.
+    2. Visualize the top 5 papers for venue arXiv based on the number of citations across all available years for arXiv. (how many times this paper has been cited, so consider those with the largest inCitations from arXiv)
+    3. Visualize the trend of the amount of publications across all available years for venue ICSE.
 ## Contributions
 - Contributors of this project are:
     1. Yumeng Yin(E0227600)
     2. Shwe Soe Chun (E0210469)
-- For every graph, there is a main visualizer and helper.  Yumeng acts as the main visualizer for first and third charts and the second chart is done by Soe Chun. 
 - Task and responsibility allocation
-    - Type of visualization to use for all objectives are brainstormed together
-    - Project Setup, initial data query from api and processing, adding mouse events to the graphs are done by Shwe Soe Chun
-    - Yumeng act as the main visualizer and worked on the basics of the graphs used. Further data processing to fit data into d3 format and finalizing the graphs are also done by Yumeng
+    - Yumeng act as the main visualizer for Q1.
+    - Soe Chun act as the main visualizer for Q2.
+    - Q3 was done together.
     - Overall, github is used to host our code.  The code can be found [here](https://github.com/soechun/cirviz)
 
 # 2. Visualization Purpose & Method
 | Objective | Visualization |
 | :-------: | :-----------: |
-| 1 | Bar Chart |
-| 2 | Bar Chart |
-| 3 | BarChart |
+| 1 | Stacked bar chart |
+| 2 | Bar chart |
+| 3 | Line chart with trend line |
 
-## 1. Number of commits per week within a year - Line Graph
-![Commits per week](commit_per_week.png)
+## 1. Top 10 authors for venue arXiv based on the number of publications he/she has made across all available years for arXiv.
 ### Method
-  1. The following github [api](https://api.github.com/repos/torvalds/linux/stats/participation) https://api.github.com/repos/torvalds/linux/stats/participation is used together with ajax from jquery. The data is then feed into a function that will do initial data processing.
-  2. From the previous data preparation, we have the list of all commits of owners and non-reposiitory owners for all previous 52 months. To show the change trend for owners and non-owners, we select the Line graph.
-  3. For each group (owners, non-owners), we draw a line using d3. First we define the X-Axis using d3.scaleBand ranging from week 52 to week 1 and Y-axis as d3.scaleLinear. 
-  4. After that lines are drawn using different data points for user data for each month. The legend is added to the right side denoting the color used for different user groups.
-### Justification for visualization 
-- When we first saw the data, there are 52 weeks worth of data which would be difficult to comprehend in bar charts. and also in comparison line chart would reveal more between the difference between the no. of commits per owner vs non-owners. We can also see the change of user pattern throughout the time. 
-### Insight
-From the final chart, we can find out that the commit from repository is stable and constant in the previous 52 weeks. The commits from non-owner keep increasing in the previous 52 weeks. The reason of that may be the increase of the number of non-repository users in the previous 52 weeks.
+1. Since the task is to visualize the top 10 authors for venue arXiv based on the number of publications. To retrive the data, we first filter out all data for venue arXiv. After that, the count of each author (distinguish author using ID) for each year are calculated. Total counts of all publications for all year for authors are calculated to get the ranking and retrive the top 10 authors' data.
+2. From step 1, we now have the csv file which contain the top 10 authors and there count of publications for each year.
+3. For each author we draw a stacked bar, we use different color to denote publication number for different year.
 
-## 2. Time and day when developers are active (in terms of commit) - Heatmap
+### Justification for visualization 
+- To show the total ranking for those authors and to visualize the change of the publications among all years we select to use stacked bar chart. 
+
+### Insight
+From the final chart, we can find out that Damien Chablat is the top 1 from all of the publications in previous few years and he actively publish paper on arVix before 2010.
+    
+## 2. Visualize the top 5 papers for venue arXiv based on the number of citations across all available years for arXiv. (how many times this paper has been cited, so consider those with the largest inCitations from arXiv)
 ![Commits per working hour](heatmap.png)
 ### Method
     1. The following [github api](https://api.github.com/repos/torvalds/linux/stats/punch_card) https://api.github.com/repos/torvalds/linux/stats/punch_card is used together with ajax from jquery. The data is then feed into a function that do initial data processing.
@@ -48,9 +47,8 @@ From the final chart, we can find out that the commit from repository is stable 
 ### Insight
 - From the heatmap, we can find out that Tuesday 3pm, Wednesday 4pm and Friday 3pm the repo have the most commits. Sataurday have the least commits in the whole week. Moreover, we can conclude that overall, Tuesday and Wednesday are the most active on git among other days.
 
-## 3. Languages used in repositories owned by Linux repository owner - BarChart
+## 3. Visualize the trend of the amount of publications across all available years for venue ICSE.
 ![Language per repo](lang_per_repo.png)
-Languges per repositories owned by `torvalds`
 ### Method
     1. The following [github api](https://api.github.com/users/torvalds/repos) https://api.github.com/users/torvalds/repos is used together with ajax from jquery. This api gives the overall data of repositories under torvalds which contains link to language distribution of each repository.  Then we used another ajax query together with those links to gather language info from each repository.
     2. To the total bytes count of different programming languages used across ALL of specific author, we choose to use scatter bar chart so that we can both display the different languages for each repo and compare between different repos. 

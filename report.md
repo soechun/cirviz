@@ -22,6 +22,7 @@
 | 3 | Line chart with trend line |
 
 ## 1. Top 10 authors for venue arXiv based on the number of publications he/she has made across all available years for arXiv.
+![Top 10 authors for venue ArXiv](q1.png)
 ### Method
 1. Since the task is to visualize the top 10 authors for venue arXiv based on the number of publications. To retrive the data, we first filter out all data for venue arXiv. After that, the count of each author (distinguish author using ID) for each year are calculated. Total counts of all publications for all year for authors are calculated to get the ranking and retrive the top 10 authors' data.
 2. From step 1, we now have the csv file which contain the top 10 authors and there count of publications for each year.
@@ -34,29 +35,23 @@
 From the final chart, we can find out that Damien Chablat is the top 1 from all of the publications in previous few years and he actively publish paper on arVix before 2010.
     
 ## 2. Visualize the top 5 papers for venue arXiv based on the number of citations across all available years for arXiv. (how many times this paper has been cited, so consider those with the largest inCitations from arXiv)
-![Commits per working hour](heatmap.png)
+![Top 5 papers for venue ArXiv](q2.png)
 ### Method
-    1. The following [github api](https://api.github.com/repos/torvalds/linux/stats/punch_card) https://api.github.com/repos/torvalds/linux/stats/punch_card is used together with ajax from jquery. The data is then feed into a function that do initial data processing.
-    2. To visualize total commits per working hour (8.00 am~6.00 pm) of each day (Monday to Sunday), we choose to use heatmap to show the change of commits for different time and different day. 
-    3. We further processed the data to include average commits per working hour across every day and average commits per day across every hour. This later comes into help to tell me when the devs are most active.
-    4. After connecting all commits counts for different users of each day, we first define the two side of the heatap as Days(Sunday .etc) and Times(the exact time like 8 am). 
-    5. After that the range of commits numbers are divided into 9 groups, denoted by nine color, using d3 function d3.scaleQuantile. As example the colors are representing the number of commits for following 9 range (0, 2), (2, 4), (4, 5), (5, 7), (7, 69), (69, 190), (190, 311), (311, 433), (433,)
-    6. The block for different day and time will be filled using the different colors defined before according to the number of commits. Last but not least, mouse events are added to all blocks to show the number of commits for the block.
+    1. The Task is to visualize the top 5 papers for venuse arXiv.  First, we used jupyter and python for dataprocessing.
+    2. Using pandas, we were able to extract out the data rows that has the venue ArXiv. We used the panda to get the lenght of the inCitations for each report and append it as column.
+    3. We use that column to sort and get the top 5 papers from the list. 
+    4. We use the bar chart to plot them using d3.  title as y axis and inCitations number as x-axis.
 ### Justification for visualization 
-- For the commits per working hour, we decided to use heatmap as it is easier to compare between the time and the day. The graph can give have insights on which days or time has the most commit.  And also it can give us general insight on which days the users are most active. 
+- For this plot, it is a straight forward choice likewise with the first graph, we are comparing the number of inCitations with the title.  So we can safely use the barchar and a tooltip to show what are the top reports that are most cited in venue "ArXiv".
 ### Insight
-- From the heatmap, we can find out that Tuesday 3pm, Wednesday 4pm and Friday 3pm the repo have the most commits. Sataurday have the least commits in the whole week. Moreover, we can conclude that overall, Tuesday and Wednesday are the most active on git among other days.
+- From the graph it can be seen that, the top 10 has at least 2000 inCitations and the highest paper has over 5000 incitations which is impressive. And by looking at the data, it can be seen that most of the papers are about Computing and Mathematics meaning there are a lot of papers on these topics. 
 
 ## 3. Visualize the trend of the amount of publications across all available years for venue ICSE.
-![Language per repo](lang_per_repo.png)
+![Trend of publications made for venue ICSE through years](q3.png)
 ### Method
-    1. The following [github api](https://api.github.com/users/torvalds/repos) https://api.github.com/users/torvalds/repos is used together with ajax from jquery. This api gives the overall data of repositories under torvalds which contains link to language distribution of each repository.  Then we used another ajax query together with those links to gather language info from each repository.
-    2. To the total bytes count of different programming languages used across ALL of specific author, we choose to use scatter bar chart so that we can both display the different languages for each repo and compare between different repos. 
-    3. For the scatter bar chart, we first get the number of categories of languages used for all repos. After that, one color are selected for each of the langues.
-    4. From our insight of the data, the language byte count is bias that C used in linux repo is almost 70 times of the second most language. In this case, for Y-axis we use d3.scaleLog() so that the display for different languages will be balanced. 
-    5. For X-axis, since not all languages will exist in all repos, for the plot, only the used language will be plot for each repo. To achieve this, a list of languages contained for different repos is created first and used when defining the x-Axis.
-    6. After all preparation, we plot a bar for each language for each repo based on the total count of byte and the color defined for the language.
-    7. Last but not least, mouse event are added to the bar to display the bytes and the language for each bar.
+    1. This task is to get the trend line on how papers with venue ICSE are being published and statistics throughout 1992. We first filter out the papers that has venue ICSE.
+    2. The data is then further processed to get only years and title as these are the only applicable fields.
+    3 The data is then groupedby year and aggregator function is used to get the count of papers for each year.
 ### Justification for visualization 
 - We found out that there is only countable number of repositories under torvals.  So, It is easier to compare languages across different repositoires. As we used a grouped barchart, it is also easier to compare which language is the most dominant in each repository.  We also used log scale on the Y axis as one of the repository (linux) is a very popular repository with a large number of C code written in it.  So without log scale, we won't be able to comprehend the difference between the rest of the repositories.
 ### Insight

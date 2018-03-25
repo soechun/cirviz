@@ -101,7 +101,13 @@
       .attr("transform", "translate(" + (margin.left) + ",0)")
       .call(yAxis.tickFormat(currencyFormat));
 
-    
+    svg.append("text")
+      .attr("x", margin.left +80)
+      .attr("y", 40)
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle")
+      .text("Number of publications");
+
     // x axis label
     svg.append("text")
       .attr("x", (width + (margin.left + margin.right) )/ 2)

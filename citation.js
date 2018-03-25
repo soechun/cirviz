@@ -3,7 +3,7 @@ d3.csv("most_cited.csv", function(error, data) {
 
     console.log(data);
     var svg = d3.select("#svg1"),
-    margin = {top: 20, right: 70, bottom: 100, left: 40},
+    margin = {top: 50, right: 50, bottom: 100, left: 550},
     width = +svg.attr('width') - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform","translate(" + margin.left + "," + margin.top + ")");
@@ -27,7 +27,8 @@ d3.csv("most_cited.csv", function(error, data) {
 
     g.append("g")
         .attr("class", "y axis")
-        .call(d3.axisLeft(y));
+        .call(d3.axisLeft(y))
+        .attr('style','word-wrap: break-word; text-align:center;');
 
     g.selectAll(".bar")
         .data(data)
@@ -45,4 +46,45 @@ d3.csv("most_cited.csv", function(error, data) {
               .html((d.title) + "<br>" + (d.lenlist));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
+    
+    svg.append("text")
+      .attr("x", margin.left )
+      .attr("y", 40)
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle")
+      .text("Paper Title");
+
+    // x axis label
+    svg.append("text")
+      .attr("x", (width + (margin.left + margin.right) )*2/3)
+      .attr("y", height + margin.bottom)
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle")
+      .text("Number of citations");
+
 })
+
+
+function wrap(text, width) {
+  text.each(function() {
+    var text = d3.select(this),
+        words = text.text().split(/\s+/).reverse(),
+        word,
+        line = [],
+        lineNumber = 0,
+        lineHeight = 1.1, // ems
+        y = text.attr("y"),
+        dy = parseFloat(text.attr("dy")),
+        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em");
+    while (word = words.pop()) {
+      line.push(word);
+      tspan.text(line.join(" "));
+      if (tspan.node().getComputedTextLength() > width) {
+        line.pop();
+        tspan.text(line.join(" "));
+        line = [word];
+        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", ++lineNumber * lineHeight + dy + "em").text(word);
+      }
+    }
+  });
+}

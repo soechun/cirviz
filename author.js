@@ -31,7 +31,7 @@ var z = d3.scaleOrdinal()
     "#930a0a"]);
 
 var svg = d3.select("svg"),
-    margin = {top: 30, right: 70, bottom: 100, left: 40},
+    margin = {top: 50, right: 70, bottom: 100, left: 40},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -84,16 +84,24 @@ d3.csv("author_count.csv", function(d, i, columns) {
 
   g.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(y).ticks(null, "s"))
-    .append("text")
-      .attr("x", 2)
-      .attr("y", y(y.ticks().pop()) + 0.5)
-      .attr("dy", "0.32d")
-      .attr("fill", "#000")
-      .attr("font-weight", "bold")
-      .attr("text-anchor", "start")
-      .attr("transform", function(d, i) { return "translate(0,-8)"; })
+      .call(d3.axisLeft(y))
+    
+
+  svg.append("text")
+      .attr("x", margin.left +80)
+      .attr("y", 25)
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle")
       .text("Number of publications");
+
+    // x axis label
+    svg.append("text")
+      .attr("x", (width + (margin.left + margin.right) )/2)
+      .attr("y", height + margin.bottom+10)
+      .attr("class", "text-label")
+      .attr("text-anchor", "middle")
+      .text("Author Name");
+
 
   var legend = g.append("g")
       .attr("font-family", "sans-serif")
